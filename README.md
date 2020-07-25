@@ -57,8 +57,8 @@ npm install passport-azure-ad
 
 [Repo](https://github.com/AzureAD/passport-azure-ad)
 
-* [Sample](https://github.com/Azure-Samples/active-directory-node-webapi-basic/blob/master/app.js)
-* [Sample](https://github.com/AzureADQuickStarts/AppModelv2-WebAPI-nodejs/blob/master/node-server/app.js)
+* [Sample - Restify, Mongo](https://github.com/AzureADQuickStarts/AppModelv2-WebAPI-nodejs/blob/master/node-server/app.js)
+* [Sample - Restify, Mongo](https://github.com/Azure-Samples/active-directory-node-webapi-basic/blob/master/app.js)
 
 
 ## Google, Facebook, Twitter 
