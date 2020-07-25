@@ -64,3 +64,11 @@ npm install passport-azure-ad
 ## Google, Facebook, Twitter 
 
 [Passportjs.org](http://www.passportjs.org/docs/)
+
+## Deploy Multi-Containers Group
+
+(Resource Manager Template)(https://docs.microsoft.com/en-us/azure/container-instances/container-instances-multi-container-group)
+
+```
+az deployment group create --resource-group myRG --template-file container-group-template.json
+```

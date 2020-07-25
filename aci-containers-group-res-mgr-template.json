@@ -1,0 +1,100 @@
+{
+  "comment-line1": "2 containers:",
+  "comment-line2": "1 public port 80 map to internal 80",
+  "comment-line3": "0 public port. 1 internal port 5000",
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "containerGroupName": {
+      "type": "string",
+      "defaultValue": "vincenthomecg",
+      "metadata": {
+        "description": "Container Group name."
+      }
+    }
+  },
+  "variables": {
+    "container1name": "expressapi-container",
+    "container1image": "vincenthome/expressapistarter:latest",
+    "container2name": "expressapi-container2",
+    "container2image": "vincenthome/expressapistarter:latest"
+  },
+  "resources": [
+    {
+      "name": "[parameters('containerGroupName')]",
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2019-12-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "containers": [
+          {
+            "name": "[variables('container1name')]",
+            "properties": {
+                "image": "[variables('container1image')]",
+                "resources": {
+                    "requests": {
+                    "cpu": 1,
+                    "memoryInGb": 0.5
+                    }
+                },
+                "ports": [
+                    {
+                    "port": 80
+                    }
+                ],
+                "environmentVariables": [
+                    {
+                        "name": "PORT",
+                        "value": "80"
+                    },
+                    {
+                        "name": "HELLO",
+                        "value": "PublicContainer"
+                    }
+                ],
+            }
+          },
+          {
+            "name": "[variables('container2name')]",
+            "properties": {
+                "image": "[variables('container2image')]",
+                "resources": {
+                    "requests": {
+                    "cpu": 1,
+                    "memoryInGb": 0.5
+                    }
+                },
+                "environmentVariables": [
+                    {
+                        "name": "PORT",
+                        "value": "5000"
+                    },
+                    {
+                        "name": "HELLO",
+                        "value": "PrivateContainer"
+                    }
+                ]
+            }
+          }
+        ],
+        "osType": "Linux",
+        "ipAddress": {
+          "type": "Public",
+          "dnsNameLabel": "[parameters('containerGroupName')]",
+          "ports": [
+            {
+              "protocol": "tcp",
+              "port": 80
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "containerIPv4Address": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups/', parameters('containerGroupName'))).ipAddress.ip]"
+    }
+  }
+}
