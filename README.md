@@ -45,3 +45,22 @@ npm run test
 ```
 npm run dev
 ```
+
+## Azure AD -  Open ID Connect  JWT validation middleware for Node.
+
+```
+npm install passport-azure-ad
+```
+
+[passport-azure-ad](http://www.passportjs.org/packages/passport-azure-ad/)
+
+
+[Repo](https://github.com/AzureAD/passport-azure-ad)
+
+* [Sample](https://github.com/Azure-Samples/active-directory-node-webapi-basic/blob/master/app.js)
+* [Sample](https://github.com/AzureADQuickStarts/AppModelv2-WebAPI-nodejs/blob/master/node-server/app.js)
+
+
+## Google, Facebook, Twitter 
+
+[Passportjs.org](http://www.passportjs.org/docs/)
