@@ -69,6 +69,13 @@ npm install passport-azure-ad
 
 (Resource Manager Template)(https://docs.microsoft.com/en-us/azure/container-instances/container-instances-multi-container-group)
 
+
 ```
-az deployment group create --resource-group myRG --template-file container-group-template.json
+az deployment group create --resource-group myRG --template-file aci-containers-group-res-mgr-template.json
 ```
+
+#### Template:  aci-containers-group-res-mgr-template.json
+* 2 containers:
+* 1 public port 80 map to internal 80
+* 0 public port. 1 internal port 5000
+  
