@@ -1,7 +1,4 @@
 {
-  "comment-line1": "2 containers:",
-  "comment-line2": "1 public port 80 map to internal 80",
-  "comment-line3": "0 public port. 1 internal port 5000",
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -39,13 +36,13 @@
                 },
                 "ports": [
                     {
-                    "port": 80
+                    "port": 8080
                     }
                 ],
                 "environmentVariables": [
                     {
                         "name": "PORT",
-                        "value": "80"
+                        "value": "8080"
                     },
                     {
                         "name": "HELLO",
@@ -84,7 +81,7 @@
           "ports": [
             {
               "protocol": "tcp",
-              "port": 80
+              "port": 8080
             }
           ]
         }
