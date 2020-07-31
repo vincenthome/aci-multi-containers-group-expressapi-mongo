@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -16,6 +17,8 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
+  const d = (new Date()).toLocaleString();
+  console.log(`******* ${d}`);
   res.json({
     message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄'
   });
