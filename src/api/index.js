@@ -16,21 +16,20 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  return res.send('Received a POST HTTP method');
+  return res.send('Received a API POST HTTP method');
 });
 
 router.put('/', (req, res) => {
-  return res.send('Received a PUT HTTP method');
+  return res.send('Received a API PUT HTTP method');
 });
 
 router.delete('/', (req, res) => {
-  return res.send('Received a DELETE HTTP method');
+  return res.send('Received a API DELETE HTTP method');
 });
 
 
 // calling a different server
 router.get('/private', (_req, res) => {
-
   const d = (new Date()).toLocaleString();
   console.log(`******* ${d}`);
   request('http://localhost:5000', (error, response, body) => {
