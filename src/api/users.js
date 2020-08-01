@@ -1,49 +1,76 @@
-let users = {
-    1: {
-    id: '1',
-    username: 'Robin Wieruch',
-    },
-    2: {
-    id: '2',
-    username: 'Dave Davids',
-    }
-};
-
-
 /* eslint-disable no-console */
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
+const mongo = require('../mongo');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  return res.json(users);
+router.get('/', async (req, res) => {
+    const query = {
+        // id: 'c3478279-f6f4-49c7-a131-382607d3641d'
+        // age: 20
+    };
+    const documents = await mongo.readAll(query);
+    return res.json(documents);
 });
 
-router.get('/:id', (req, res) => {
-    return res.json(users[req.params.id]);
+// this has to be in front of param query in order to intercept the segment 'count'
+router.get('/count', async (req, res) => {
+    const query = {
+        // age: {
+        //     $lte: 79
+        // }
+    };
+    const count = await mongo.count(query);
+    return res.json({
+        count
+    });
 });
 
-router.post('/', (req, res) => {
+router.get('/:id', async (req, res) => {
+    const query = {
+        id: req.params.id
+    };
+    const document = await mongo.readOne(query);
+    return res.json(document);
+});
+
+router.post('/', async (req, res) => {
+    const createtime = new Date();
     const id = uuidv4();
     const user = {
         id,
-        text: req.body.text,
-        count: req.body.count,
-        datetime: req.body.datetime
+        username: req.body.username,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        age: req.body.age,
+        createtime
     };
-    console.log(req.body);
-    users[id] = user;
+    await mongo.create(user);
     return res.json(user);
-    // return res.send('POST Emojis HTTP method on user resource');
 });
 
-router.put('/', (req, res) => {
-    return res.send('PUT Emojis HTTP method on user resource');
+router.put('/:id', async (req, res) => {
+    const modifytime = new Date();
+    const query = {
+        id: req.params.id
+    };
+    const user = {
+        $set: {
+            ...req.body,
+            modifytime
+        }
+    };
+    await mongo.update(query, user);
+    return res.json(user);
 });
 
-router.delete('/', (req, res) => {
-    return res.send('DELETE Emojis HTTP method on user resource');
+router.delete('/:id', async (req, res) => {
+    const query = {
+        id: req.params.id
+    };
+    await mongo.deleteOne(query);
+    return res.json(query);
 });
 
 module.exports = router;
