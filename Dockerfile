@@ -1,5 +1,7 @@
 FROM node:12.18-alpine
 ENV NODE_ENV production
+ENV MONGOUID myuid
+ENV MONGOPWD mypwd
 ENV HELLO hello-dockefile
 ENV PORT 8080
 WORKDIR /usr/src/app
