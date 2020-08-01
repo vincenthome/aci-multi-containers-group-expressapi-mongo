@@ -19,7 +19,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   const d = (new Date()).toLocaleString();
   console.log(`******* ${d}`);
-  res.json({
+  return res.json({
     message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄'
   });
 });

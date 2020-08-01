@@ -10,14 +10,27 @@ const router = express.Router();
 router.get('/', (req, res) => {
   const d = (new Date()).toLocaleString();
   console.log(`******* ${d}`);
-  res.json({
+  return res.json({
     message: 'API - 👋🌎🌍🌏'
   });
 });
 
+router.post('/', (req, res) => {
+  return res.send('Received a POST HTTP method');
+});
 
+router.put('/', (req, res) => {
+  return res.send('Received a PUT HTTP method');
+});
+
+router.delete('/', (req, res) => {
+  return res.send('Received a DELETE HTTP method');
+});
+
+
+// calling a different server
 router.get('/private', (_req, res) => {
-  // calling a different server
+
   const d = (new Date()).toLocaleString();
   console.log(`******* ${d}`);
   request('http://localhost:5000', (error, response, body) => {
@@ -29,7 +42,7 @@ router.get('/private', (_req, res) => {
       console.log('Error');
     }
   });
-  res.json({
+  return res.json({
     message: 'API private - 👋🌎🌍🌏'
   });
 });
