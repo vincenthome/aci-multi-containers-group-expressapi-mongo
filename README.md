@@ -79,3 +79,8 @@ az deployment group create --resource-group myRG --template-file aci-containers-
 * 1 public port 80 map to internal 80
 * 0 public port. 1 internal port 5000
   
+
+## References
+
+* [How to create a REST API with Express.js in Node.js](https://www.robinwieruch.de/node-express-server-rest-api)
+
