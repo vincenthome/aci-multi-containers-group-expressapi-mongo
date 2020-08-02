@@ -6,15 +6,18 @@
       "type": "string",
       "defaultValue": "vincenthomecg",
       "metadata": {
-        "description": "Container Group name."
+        "description": "My ACI Container Group"
       }
     }
   },
   "variables": {
-    "container1name": "expressapi-container",
-    "container1image": "vincenthome/expressapistarter:latest",
-    "container2name": "expressapi-container2",
-    "container2image": "vincenthome/expressapistarter:latest"
+    "webcontainer1name": "expressapi-container",
+    "webcontainer1image": "vincenthome/expressapistarter:latest",
+    "webcontainer2name": "expressapi-container2",
+    "webcontainer2image": "vincenthome/expressapistarter:latest",
+    "shareName": "acistorageshare",
+    "storageAccountName": "acistorage",
+    "storageAccountKey": "+4nTnoYeDILJAEi2ZdyqDFLwvVwz54bpwzyYRB9BYPo+sV3gJ8YwwH2VXGLDABV4CPaIxiB+boxXEs4YGiyB7w=="
   },
   "resources": [
     {
@@ -25,9 +28,9 @@
       "properties": {
         "containers": [
           {
-            "name": "[variables('container1name')]",
+            "name": "[variables('webcontainer1name')]",
             "properties": {
-                "image": "[variables('container1image')]",
+                "image": "[variables('webcontainer1image')]",
                 "resources": {
                     "requests": {
                     "cpu": 1,
@@ -36,13 +39,13 @@
                 },
                 "ports": [
                     {
-                    "port": 8080
+                    "port": 8082
                     }
                 ],
                 "environmentVariables": [
                     {
                       "name": "PORT",
-                      "value": "8080"
+                      "value": "8082"
                     },
                     {
                       "name": "MONGOUID",
@@ -57,12 +60,18 @@
                         "value": "PublicContainer"
                     }
                 ],
+                "volumeMounts": [
+                  {
+                    "name": "filesharevolume",
+                    "mountPath": "/aci/data"
+                  }
+                ]
             }
           },
           {
-            "name": "[variables('container2name')]",
+            "name": "[variables('webcontainer2name')]",
             "properties": {
-                "image": "[variables('container2image')]",
+                "image": "[variables('webcontainer2image')]",
                 "resources": {
                     "requests": {
                     "cpu": 1,
@@ -86,6 +95,12 @@
                         "name": "HELLO",
                         "value": "PrivateContainer"
                     }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "filesharevolume",
+                    "mountPath": "/aci/data"
+                  }
                 ]
             }
           }
@@ -97,10 +112,20 @@
           "ports": [
             {
               "protocol": "tcp",
-              "port": 8080
+              "port": 8082
             }
           ]
-        }
+        },
+        "volumes": [
+          {
+            "name": "filesharevolume",
+            "azureFile": {
+                "shareName": "[variables('shareName')]",
+                "storageAccountName": "[variables('storageAccountName')]",
+                "storageAccountKey": "[variables('storageAccountKey')]"
+            }
+          }
+        ]
       }
     }
   ],
