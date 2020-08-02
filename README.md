@@ -71,7 +71,8 @@ npm install passport-azure-ad
 
 
 ```
-az deployment group create --resource-group myRG --template-file aci-containers-group-res-mgr-template.json
+az deployment group create -g myRG -f aci-containers-group-res-mgr-template.json
+(az deployment group create --resource-group myRG --template-file aci-containers-group-res-mgr-template.json)
 ```
 
 #### Template:  aci-containers-group-res-mgr-template.json
@@ -84,3 +85,4 @@ az deployment group create --resource-group myRG --template-file aci-containers-
 
 * [How to create a REST API with Express.js in Node.js](https://www.robinwieruch.de/node-express-server-rest-api)
 
+* [MongoDB CRUD](https://docs.mongodb.com/drivers/node/fundamentals/crud)

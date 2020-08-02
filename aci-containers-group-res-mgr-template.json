@@ -46,11 +46,11 @@
                     },
                     {
                       "name": "MONGOUID",
-                      "value": ""
+                      "secureValue": ""
                     },
                     {
                       "name": "MONGOPWD",
-                      "value": ""
+                      "secureValue": ""
                     },
                     {
                         "name": "HELLO",
@@ -76,11 +76,11 @@
                     },
                     {
                       "name": "MONGOUID",
-                      "value": ""
+                      "secureValue": ""
                     },
                     {
                       "name": "MONGOPWD",
-                      "value": ""
+                      "secureValue": ""
                     },
                     {
                         "name": "HELLO",
