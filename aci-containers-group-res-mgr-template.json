@@ -15,6 +15,8 @@
     "webcontainer1image": "vincenthome/expressapistarter:latest",
     "webcontainer2name": "expressapi-container2",
     "webcontainer2image": "vincenthome/expressapistarter:latest",
+    "dbcontainername": "mongo",
+    "dbcontainerimage": "mongo",
     "shareName": "acistorageshare",
     "storageAccountName": "acistorage",
     "storageAccountKey": "+4nTnoYeDILJAEi2ZdyqDFLwvVwz54bpwzyYRB9BYPo+sV3gJ8YwwH2VXGLDABV4CPaIxiB+boxXEs4YGiyB7w=="
@@ -101,6 +103,46 @@
                     "name": "filesharevolume",
                     "mountPath": "/aci/data"
                   }
+                ]
+            }
+          },
+          {
+            "name": "[variables('dbcontainername')]",
+            "properties": {
+                "image": "[variables('dbcontainerimage')]",
+                "resources": {
+                    "requests": {
+                    "cpu": 1,
+                    "memoryInGb": 1.5
+                    }
+                },
+                "ports": [
+                    {
+                    "port": 27017
+                    }
+                ],
+                "environmentVariables": [
+                    {
+                      "name": "MONGO_INITDB_DATABASE",
+                      "value": ""
+                    },
+                    {
+                      "name": "MONGO_INITDB_ROOT_USERNAME",
+                      "secureValue": ""
+                    },
+                    {
+                      "name": "MONGO_INITDB_ROOT_PASSWORD",
+                      "secureValue": ""
+                    }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "filesharevolume",
+                    "mountPath": "/aci/data"
+                  }
+                ],
+                "command": [
+                  "mongod", "--dbpath=/aci/data", "--bind_ip_all"
                 ]
             }
           }
