@@ -84,5 +84,12 @@ az deployment group create -g myRG -f aci-containers-group-res-mgr-template.json
 ## References
 
 * [How to create a REST API with Express.js in Node.js](https://www.robinwieruch.de/node-express-server-rest-api)
-
 * [MongoDB CRUD](https://docs.mongodb.com/drivers/node/fundamentals/crud)
+* [Resource Template Environment Variable - SecretValue](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-environment-variables#secure-values)
+* [MongoDB Container](https://jussiroine.com/2019/02/an-adventure-in-containers-and-command-line-tools-running-mongodb-in-azure/)
+* [MongoDB Docker](https://hub.docker.com/_/mongo)
+* [MongoDB Docker](https://www.tutorialspoint.com/docker/docker_setting_mongodb.htm)
+* [MongoDB Docker Video](https://youtu.be/D5Q5WhGT0w8)
+* [MongoDB Docker-compose Video](https://youtu.be/0w0lJn4O6YQ)
+  * [source](https://www.dlighthouse.co/2017/09/docker-node-express-mongo.html)
+* [MongoDB Docker-compose Video](https://youtu.be/hP77Rua1E0c)
