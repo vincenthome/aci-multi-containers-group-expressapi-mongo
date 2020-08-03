@@ -113,7 +113,7 @@
                 "resources": {
                     "requests": {
                     "cpu": 1,
-                    "memoryInGb": 1.5
+                    "memoryInGb": 0.5
                     }
                 },
                 "ports": [
@@ -122,18 +122,6 @@
                     }
                 ],
                 "environmentVariables": [
-                    {
-                      "name": "MONGO_INITDB_DATABASE",
-                      "value": ""
-                    },
-                    {
-                      "name": "MONGO_INITDB_ROOT_USERNAME",
-                      "secureValue": ""
-                    },
-                    {
-                      "name": "MONGO_INITDB_ROOT_PASSWORD",
-                      "secureValue": ""
-                    }
                 ],
                 "volumeMounts": [
                   {
