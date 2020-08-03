@@ -2,18 +2,25 @@
 const { MongoClient } = require('mongodb');
 
 // Replace the uri string with your MongoDB deployment's connection string.
-const uid = process.env.MONGOUID;
-const pwd = process.env.MONGOPWD;
-const uri = `mongodb+srv://${uid}:${pwd}@cluster0.hhvws.azure.mongodb.net/helloworlddb?retryWrites=true&w=majority`;
+// MongDB Atlas
+// const UID = process.env.MONGOUID;
+// const PWD = process.env.MONGOPWD;
+// const DB = 'mydb';
+// const URI = `mongodb+srv://${UID}:${PWD}@cluster0.hhvws.azure.mongodb.net/helloworlddb?retryWrites=true&w=majority`;
 
+// MongoDB ACI
+const DB = 'mydb';
+const URI = `mongodb://127.0.0.1:27017/${DB}?retryWrites=true`;
+
+const COLLECTION = 'users';
 async function getCollection(client) {
   await client.connect();
-  const database = client.db('aci-express-api-starter');
-  return database.collection('users');
+  const database = client.db(DB);
+  return database.collection(COLLECTION);
 }
 
 async function create(document) {
-  const client = new MongoClient(uri);
+  const client = new MongoClient(URI);
   try {
     const collection = await getCollection(client);
     // const result  = await collection.insertMany(docs);
@@ -27,7 +34,8 @@ async function create(document) {
 }
 
 async function readAll(query) {
-  const client = new MongoClient(uri);
+  const client = new MongoClient(URI);
+  console.log(URI);
   try {
     const collection = await getCollection(client);
     const sort = {
@@ -50,7 +58,7 @@ async function readAll(query) {
 }
 
 async function readOne(query) {
-  const client = new MongoClient(uri);
+  const client = new MongoClient(URI);
   try {
     const collection = await getCollection(client);
     const options = {
@@ -66,7 +74,7 @@ async function readOne(query) {
 }
 
 async function update(query, document) {
-  const client = new MongoClient(uri);
+  const client = new MongoClient(URI);
   try {
     const collection = await getCollection(client);
     const result = await collection.updateOne(query, document);
@@ -79,7 +87,7 @@ async function update(query, document) {
 }
 
 async function deleteOne(query) {
-  const client = new MongoClient(uri);
+  const client = new MongoClient(URI);
   try {
     const collection = await getCollection(client);
     const result = await collection.deleteOne(query);
@@ -92,7 +100,7 @@ async function deleteOne(query) {
 }
 
 async function count(query) {
-  const client = new MongoClient(uri);
+  const client = new MongoClient(URI);
   try {
     const collection = await getCollection(client);
     console.log(query);
