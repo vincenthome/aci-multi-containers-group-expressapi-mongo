@@ -8,9 +8,12 @@ const { MongoClient } = require('mongodb');
 // const DB = 'mydb';
 // const URI = `mongodb+srv://${UID}:${PWD}@cluster0.hhvws.azure.mongodb.net/helloworlddb?retryWrites=true&w=majority`;
 
-// MongoDB ACI
+// MongoDB ACI - within the same Group
 const DB = 'mydb';
 const URI = `mongodb://127.0.0.1:27017/${DB}?retryWrites=true`;
+
+// MongoDB ACI - different group
+// const URI = `mongodb://username:password@amyaci.eastus.azurecontainer.io/?authSource=${DB}&retryWrites=true`;
 
 const COLLECTION = 'users';
 async function getCollection(client) {
