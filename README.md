@@ -67,19 +67,48 @@ npm install passport-azure-ad
 
 ## Deploy Multi-Containers Group
 
-(Resource Manager Template)(https://docs.microsoft.com/en-us/azure/container-instances/container-instances-multi-container-group)
-
+(Resource Manager Template - ARM)(https://docs.microsoft.com/en-us/azure/container-instances/container-instances-multi-container-group)
 
 ```
-az deployment group create -g myRG -f aci-containers-group-res-mgr-template.json
-(az deployment group create --resource-group myRG --template-file aci-containers-group-res-mgr-template.json)
+az deployment group create -g myRG -f acig-web-mongo-arm.json
 ```
 
-#### Template:  aci-containers-group-res-mgr-template.json
-* 2 containers:
-* 1 public port 80 map to internal 80
-* 0 public port. 1 internal port 5000
+### ARM Template:  acig-web-mongo-arm.json
+* 3 containers (2 web, 1 mongo):
+  * 1 public web port, 1 private web port, 1 private mongodb port
   
+### ARM Template:  acig-mongo-arm.json
+* 1 container mongo
+  * 1 public mongo port - require authentication
+
+
+## MongoDB
+
+### Create User / Role
+
+#### Admin [root](https://docs.mongodb.com/manual/reference/built-in-roles/#root)
+``` 
+use admin
+db.createUser({ user: "username", pwd: "password", roles: ["root"] })
+```
+
+#### DB [dbOwner](https://docs.mongodb.com/manual/reference/built-in-roles/#dbOwner)
+```
+use mydb
+db.createUser({ user: "username", pwd: "password", roles: ["dbOwner"] })
+```
+
+### Authentication
+
+#### Allow anonymous:
+* Mongo start arm:  ``` "command": [ "mongod", "--dbpath=/aci/data", "--bind_ip_all" ]  ```
+* connectionString: ``` mongodb://myaci.eastus.azurecontainer.io/?retryWrites=true ```
+
+#### Authenticated users only (--auth):
+* Mongo start arm: ``` "command": [ "mongod", "--dbpath=/aci/data", "--bind_ip_all", "--auth" ] ```
+* connectionString: ``` mongodb://username:password@myaci.eastus.azurecontainer.io/?authSource=mydb&retryWrites=true ```
+
+
 
 ## References
 
