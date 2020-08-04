@@ -4,9 +4,9 @@
   "parameters": {
     "containerGroupName": {
       "type": "string",
-      "defaultValue": "vincenthomecg",
+      "defaultValue": "acigwebmongo00",
       "metadata": {
-        "description": "My ACI Container Group"
+        "description": "ACI Group Web Mongo 00"
       }
     }
   },
@@ -35,7 +35,7 @@
                 "image": "[variables('webcontainer1image')]",
                 "resources": {
                     "requests": {
-                    "cpu": 1,
+                    "cpu": 0.5,
                     "memoryInGb": 0.5
                     }
                 },
@@ -76,7 +76,7 @@
                 "image": "[variables('webcontainer2image')]",
                 "resources": {
                     "requests": {
-                    "cpu": 1,
+                    "cpu": 0.5,
                     "memoryInGb": 0.5
                     }
                 },
@@ -112,7 +112,7 @@
                 "image": "[variables('dbcontainerimage')]",
                 "resources": {
                     "requests": {
-                    "cpu": 1,
+                    "cpu": 0.5,
                     "memoryInGb": 0.5
                     }
                 },

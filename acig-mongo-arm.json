@@ -1,0 +1,87 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "containerGroupName": {
+      "type": "string",
+      "defaultValue": "acigmongo00",
+      "metadata": {
+        "description": "ACI Group Mongo 00"
+      }
+    }
+  },
+  "variables": {
+    "dbcontainername": "mongo",
+    "dbcontainerimage": "mongo",
+    "shareName": "acistorageshare",
+    "storageAccountName": "acistorage",
+    "storageAccountKey": "+4nTnoYeDILJAEi2ZdyqDFLwvVwz54bpwzyYRB9BYPo+sV3gJ8YwwH2VXGLDABV4CPaIxiB+boxXEs4YGiyB7w=="
+  },
+  "resources": [
+    {
+      "name": "[parameters('containerGroupName')]",
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2019-12-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "containers": [
+          {
+            "name": "[variables('dbcontainername')]",
+            "properties": {
+                "image": "[variables('dbcontainerimage')]",
+                "resources": {
+                    "requests": {
+                    "cpu": 0.5,
+                    "memoryInGb": 0.5
+                    }
+                },
+                "ports": [
+                    {
+                    "port": 27017
+                    }
+                ],
+                "environmentVariables": [
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "filesharevolume",
+                    "mountPath": "/aci/data"
+                  }
+                ],
+                "command": [
+                  "mongod", "--dbpath=/aci/data", "--bind_ip_all", "--auth"
+                ]
+            }
+          }
+        ],
+        "osType": "Linux",
+        "ipAddress": {
+          "type": "Public",
+          "dnsNameLabel": "[parameters('containerGroupName')]",
+          "ports": [
+            {
+              "protocol": "tcp",
+              "port": 27017
+            }
+          ]
+        },
+        "volumes": [
+          {
+            "name": "filesharevolume",
+            "azureFile": {
+                "shareName": "[variables('shareName')]",
+                "storageAccountName": "[variables('storageAccountName')]",
+                "storageAccountKey": "[variables('storageAccountKey')]"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+    "containerIPv4Address": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups/', parameters('containerGroupName'))).ipAddress.ip]"
+    }
+  }
+}
