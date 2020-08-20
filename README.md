@@ -81,6 +81,10 @@ az deployment group create -g myRG -f acig-web-mongo-arm.json
 * 1 container mongo
   * 1 public mongo port - require authentication
 
+## Azure Secret
+
+* [MountSecret Volumn](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-volume-secret)
+
 
 ## MongoDB
 
