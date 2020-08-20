@@ -83,7 +83,7 @@ az deployment group create -g myRG -f acig-web-mongo-arm.json
 
 ## Azure Secret
 
-* [MountSecret Volumn](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-volume-secret)
+* [Mount Secret Volumn](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-volume-secret)
 
 
 ## MongoDB
